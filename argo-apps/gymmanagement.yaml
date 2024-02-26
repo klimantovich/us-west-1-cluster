@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gym-management
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: vklim4ntovich
+
+  source:
+    repoURL: https://github.com/klimantovich/GymManagementSystem
+    targetRevision: HEAD
+    path: chart
+    helm:
+      valueFiles:
+        - ../values/gymmanagement-dev.yaml
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: gymmanagement
+
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true

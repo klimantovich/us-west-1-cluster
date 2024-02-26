@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "gymmanagement.fullname" . }}
+  labels:
+    {{- include "gymmanagement.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "gymmanagement.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "gymmanagement.labels" . | nindent 8 }}
+        {{- with .Values.podLabels }}
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      initContainers:
+        - name: {{ .Chart.Name }}-init
+          image: "{{ .Values.initContainers.image.repository }}:{{ .Values.initContainers.image.tag }}"
+          imagePullPolicy: {{ .Values.initContainers.image.pullPolicy }}
+          env:
+            - name: MYSQL_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "gymmanagement.configmapName" . }}
+                  key: db_host
+            - name: MYSQL_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "gymmanagement.configmapName" . }}
+                  key: db_name
+            - name: MYSQL_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "gymmanagement.configmapName" . }}
+                  key: db_user
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "gymmanagement.secretName" . }}
+                  key: db_password
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: MYSQL_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "gymmanagement.configmapName" . }}
+                  key: db_host
+            - name: MYSQL_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "gymmanagement.configmapName" . }}
+                  key: db_name
+            - name: MYSQL_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "gymmanagement.configmapName" . }}
+                  key: db_user
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "gymmanagement.secretName" . }}
+                  key: db_password
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          ports:
+            - containerPort: {{ .Values.service.targetPort }}

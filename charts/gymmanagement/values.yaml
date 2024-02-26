@@ -1,0 +1,65 @@
+---
+replicaCount: 1
+
+image:
+  repository: registry.klim4ntovich.online/gym-management-app
+  pullPolicy: IfNotPresent
+  tag: "1.0"
+
+initContainers:
+  image:
+    repository: registry.klim4ntovich.online/gym-management-initdb
+    pullPolicy: IfNotPresent
+    tag: "1.0"
+
+nameOverride: ""
+fullnameOverride: ""
+
+podAnnotations: {}
+podLabels:
+  app: gym-management
+
+resources:
+  {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 5000
+  protocol: TCP
+
+ingress:
+  enabled: true
+  className: ""
+  annotations:
+    {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    # - host: myapp.example.com
+    - paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+  httpAuth:
+    enabled: true
+    realmString: Authentication Required
+    user: ""
+    password: ""
+
+configmap:
+  db_user: ""
+  db_name: ""
+  db_host: ""
+
+secret:
+  db_password: ""

@@ -1,0 +1,19 @@
+---
+configs:
+  repositories:
+    repo1:
+      url: https://github.com/klimantovich/GymManagementSystem
+      name: gym-management
+      type: git
+  params:
+    server.insecure: true
+# server:
+#   ingress:
+#     enabled: true
+#     ingressClassName: nginx
+#     annotations:
+#       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+#       nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+#     hostname: "project.klim4ntovich.online"
+#     path: /
+#     pathType: Prefix
