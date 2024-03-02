@@ -19,14 +19,3 @@ ingress:
       paths:
         - path: /
           pathType: Prefix
-  httpAuth:
-    user: "vitali"
-    password: "01012024"
-
-configmap:
-  db_user: "root"
-  db_name: "Gym"
-  db_host: "dev-mysql-master.cqrd570adyl7.us-west-2.rds.amazonaws.com"
-
-secret:
-  db_password: "root1234"
