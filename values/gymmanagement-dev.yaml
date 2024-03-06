@@ -13,9 +13,9 @@ resources:
     cpu: "200m"
 
 ingress:
-  enabled: true
-  hosts:
-    - host: project.klim4ntovich.online
-      paths:
-        - path: /
-          pathType: Prefix
+  enabled: false
+  # hosts:
+  #   - host: project.klim4ntovich.online
+  #     paths:
+  #       - path: /
+  #         pathType: Prefix
