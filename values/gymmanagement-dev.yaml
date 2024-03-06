@@ -15,7 +15,10 @@ resources:
 ingress:
   enabled: true
   hosts:
-    - host: project.klim4ntovich.online
-      paths:
+    # - host: project.klim4ntovich.online
+    #   paths:
+    #     - path: /
+    #       pathType: Prefix
+    - paths:
         - path: /
           pathType: Prefix
