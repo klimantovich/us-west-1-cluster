@@ -1,0 +1,24 @@
+initContainers:
+  image:
+    repository: registry.klim4ntovich.online/gym-management-initdb
+    pullPolicy: IfNotPresent
+    tag: "1.0"
+
+resources:
+  requests:
+    memory: "64Mi"
+    cpu: "50m"
+  limits:
+    memory: "256Mi"
+    cpu: "200m"
+
+ingress:
+  enabled: true
+  hosts:
+    # - host: project.klim4ntovich.online
+    #   paths:
+    #     - path: /
+    #       pathType: Prefix
+    - paths:
+        - path: /
+          pathType: Prefix
