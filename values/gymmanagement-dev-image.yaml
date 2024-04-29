@@ -1,3 +1,4 @@
 image:
-  repository: registry.klim4ntovich.online/gym-management-app
+  # repository: registry.klim4ntovich.online/gym-management-app
+  repository: klim4ntovich/gym-management-app
   tag: "0.6.0"
