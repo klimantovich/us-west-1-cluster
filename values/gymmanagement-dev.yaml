@@ -1,6 +1,7 @@
 initContainers:
   image:
-    repository: registry.klim4ntovich.online/gym-management-initdb
+    # repository: registry.klim4ntovich.online/gym-management-initdb
+    repository: klim4ntovich/gym-management-initdb
     pullPolicy: IfNotPresent
     tag: "1.0"
 
